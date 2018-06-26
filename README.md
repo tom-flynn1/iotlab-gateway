@@ -1,8 +1,23 @@
-# resin-node-red
+# IoT-Lab gateway
+
+This docker image for resin is based on https://github.com/resin-io-projects/resin-node-red.
+
+This gateway contains the following:
+
+* Node-RED
+* InfluxDB
+* Grafana
+
+It also behave like a WiFi access point.
+
+* SSID: iotlab-ap
+* Passphrase: iotlab
+
+## Upstream documentation
 
 A Node-RED application with [resin-supervisor](https://docs.resin.io/runtime/supervisor-api/) flow [support](https://github.com/resin-io-projects/node-red-contrib-resinio), can be managed remotely via resin.io [publicURL](https://docs.resin.io/management/devices/#enable-public-device-url)
 
-## Configure via [environment variables](https://docs.resin.io/management/env-vars/)
+### Configure via [environment variables](https://docs.resin.io/management/env-vars/)
 Variable Name | Default | Description
 ------------ | ------------- | -------------
 PORT | `80` | the port that exposes the Node-RED UI
@@ -16,7 +31,7 @@ the [Node-RED documentation](https://nodered.org/docs/security#generating-the-pa
 More information about using and setting environment variables can be found in
 the [resin.io docs](https://docs.resin.io/management/env-vars/).
 
-## License
+"## License
 
 Copyright 2016 Resinio Ltd.
 
