@@ -7,6 +7,7 @@ This gateway contains the following:
 * Node-RED
 * InfluxDB
 * Grafana
+* Mosquitto (if possible)
 
 It also behave like a WiFi access point.
 
