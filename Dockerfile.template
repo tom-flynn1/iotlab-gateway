@@ -1,14 +1,18 @@
-# base-image for node on any machine using a template variable,
-# see more about dockerfile templates here:http://docs.resin.io/pages/deployment/docker-templates
-# Note the node:slim image doesn't have node-gyp
+# Inspired from https://github.com/kipe/resin-influx/tree/master/app
+# and https://github.com/influxdata/influxdata-docker/tree/master/influxdb/1.5/alpine
 FROM resin/%%RESIN_MACHINE_NAME%%-alpine-node:6-slim
 
 # Defines our working directory in container
 RUN mkdir -p /usr/src/app/
-WORKDIR /usr/src/app
 
-# Install node modules, including i2c-bus without carrying all the deps in the layers
-RUN apk add --no-cache make gcc g++ python git && \
+RUN echo 'hosts: files dns' >> /etc/nsswitch.conf
+RUN apk add --no-cache tzdata bash
+
+ENV INFLUXDB_VERSION 1.5.4
+RUN set -ex && \
+  apk add --no-cache --virtual .build-deps wget gnupg tar ca-certificates && \
+  update-ca-certificates && \
+  apk add --no-cache make gcc g++ python git && \
   JOBS=MAX npm install -g --production --unsafe-perm --silent \
     node-red \
     node-red-contrib-influxdb \
@@ -18,11 +22,33 @@ RUN apk add --no-cache make gcc g++ python git && \
     node-red-dashboard \
     node-red-node-serialport \
     && \
-  apk del make gcc g++ && \
+  for key in \
+      05CE15085FC09D18E99EFB22684A14CF2582E0C5 ; \
+  do \
+      gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key" || \
+      gpg --keyserver pgp.mit.edu --recv-keys "$key" || \
+      gpg --keyserver keyserver.pgp.com --recv-keys "$key" ; \
+  done && \
+  wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb-${INFLUXDB_VERSION}-static_linux_amd64.tar.gz.asc && \
+  wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb-${INFLUXDB_VERSION}-static_linux_amd64.tar.gz && \
+  gpg --batch --verify influxdb-${INFLUXDB_VERSION}-static_linux_amd64.tar.gz.asc influxdb-${INFLUXDB_VERSION}-static_linux_amd64.tar.gz && \
+  tar -C /usr/src -xzf influxdb-${INFLUXDB_VERSION}-static_linux_amd64.tar.gz && \
+  rm -f /usr/src/influxdb-*/influxdb.conf && \
+  chmod +x /usr/src/influxdb-*/* && \
+  cp -a /usr/src/influxdb-*/* /usr/bin/ && \
+  rm -rf *.tar.gz* /usr/src/influxdb-* /root/.gnupg && \
+  apk del .build-deps make gcc g++ && \
   npm cache clean --force && rm -rf /tmp/*
+
+WORKDIR /usr/src/app
 
 # This will copy all files in our root to the working  directory in the container
 COPY ./app ./
+
+RUN set -ex && \
+    apk del .build-deps
+COPY influxdb.conf /etc/influxdb/influxdb.conf
+
 
 # Enable systemd init system in container
 ENV INITSYSTEM=on
