@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 RUN apt-get update && \
   apt-get -y upgrade && \
-  apt-get -y install cmake libssl1.0-dev libwebsockets-dev uuid-dev mosquitto && \
+  apt-get -y install cmake mosquitto && \
   apt-get autoremove -y && \
   rm -rf /var/lib/apt/lists/*
 
