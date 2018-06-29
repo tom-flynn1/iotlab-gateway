@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 
 RUN apt-get update && \
   apt-get -y upgrade && \
-  apt-get -y install mosquitto build-essential libssl-dev python git apt-transport-https lsb-release gcc g++ make
+  apt-get -y install apt-utils mosquitto build-essential libssl-dev python git apt-transport-https lsb-release
 RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash && \
   apt-get -y install nodejs && \
   JOBS=MAX npm install -g --production --unsafe-perm --silent \
@@ -18,6 +18,8 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash && \
     node-red-contrib-ttn \
     node-red-dashboard \
     node-red-node-serialport
+RUN apt-get autoremove -y build-essential && \
+  rm -rf /var/lib/apt/lists/*
 
 # Enable systemd init system in container
 ENV INITSYSTEM=on
