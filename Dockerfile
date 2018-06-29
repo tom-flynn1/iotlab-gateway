@@ -2,12 +2,21 @@
 FROM resin/raspberrypi3-debian:stretch
 
 # Defines our working directory in container
-RUN mkdir -p /usr/src/app/ && mkdir -p ~/.node-red
+RUN mkdir -p /usr/src/app/
 WORKDIR /usr/src/app
 
 RUN apt-get update && \
   apt-get -y upgrade && \
-  apt-get -y install cmake mosquitto nodered npm && \
+  apt-get -y install mosquitto build-essential libssl-dev python git && \
+  curl -sL https://deb.nodesource.com/setup_8.x | bash && \
+  JOBS=MAX npm install -g --production --unsafe-perm --silent \
+    node-red \
+    node-red-contrib-influxdb \
+    node-red-contrib-mapper \
+    node-red-contrib-resinio \
+    node-red-contrib-ttn \
+    node-red-dashboard \
+    node-red-node-serialport && \
   apt-get autoremove -y && \
   rm -rf /var/lib/apt/lists/*
 
