@@ -6,7 +6,8 @@ RUN mkdir -p /usr/src/app/
 WORKDIR /usr/src/app
 
 RUN apt-get update && \
-  apt-get -qq -y install cmake libssl1.0-dev libwebsockets-dev uuid-dev mosquitto && \
+  apt-get -y upgrade && \
+  apt-get -y install cmake libssl1.0-dev libwebsockets-dev uuid-dev mosquitto && \
   apt-get autoremove -y && \
   rm -rf /var/lib/apt/lists/*
 
