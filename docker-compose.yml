@@ -1,5 +1,7 @@
 version: '2'
-
+volumes: 
+  influxdb:
+  grafana:
 services:
   influxdb:
     image: influxdb
