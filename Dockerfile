@@ -18,6 +18,10 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash && \
     node-red-contrib-ttn \
     node-red-dashboard \
     node-red-node-serialport
+RUN curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add - && \
+  echo "deb https://repos.influxdata.com/debian stretch stable" | sudo tee /etc/apt/sources.list.d/influxdb.list && \
+  sudo apt-get update && \
+  sudo apt-get install influxdb
 RUN apt-get autoremove -y build-essential && \
   rm -rf /var/lib/apt/lists/*
 
