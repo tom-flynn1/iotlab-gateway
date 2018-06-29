@@ -8,8 +8,8 @@ WORKDIR /usr/src/app
 RUN apt-get update && \
   apt-get -y upgrade && \
   apt-get -y install mosquitto build-essential libssl-dev python git apt-transport-https lsb-release gcc g++ make
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash && \
-  apt-get -y install npm && \
+RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash && \
+  apt-get -y install nodejs && \
   JOBS=MAX npm install -g --production --unsafe-perm --silent \
     node-red \
     node-red-contrib-influxdb \
