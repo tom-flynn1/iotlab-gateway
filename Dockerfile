@@ -25,10 +25,13 @@ RUN curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add - && \
 RUN apt-get autoremove -y build-essential && \
   rm -rf /var/lib/apt/lists/*
 
+COPY ./mosquitto.service /etc/systemd/system/mosquitto.service
+COPY ./influxdb.conf /etc/influxdb/influxdb.conf
+COPY ./nodered/app ./
+
 # Enable systemd init system in container
 ENV INITSYSTEM=on
-COPY mosquitto.service /etc/systemd/system/mosquitto.service
 RUN systemctl enable /etc/systemd/system/mosquitto.service
-COPY ./nodered/app ./
+RUN systemctl enable influxdb.service
 
 CMD ["bash", "/usr/src/app/start.sh"]
