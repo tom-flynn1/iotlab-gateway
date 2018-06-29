@@ -23,6 +23,6 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash && \
 ENV INITSYSTEM=on
 COPY mosquitto.service /etc/systemd/system/mosquitto.service
 RUN systemctl enable /etc/systemd/system/mosquitto.service
-COPY ./app ./
+COPY ./nodered/app ./
 
 CMD ["bash", "/usr/src/app/start.sh"]
