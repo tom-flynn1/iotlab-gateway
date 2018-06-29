@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 RUN apt-get update && \
   apt-get -y upgrade && \
   apt-get -y install mosquitto build-essential libssl-dev python git apt-transport-https lsb-release gcc g++ make
-RUN bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered) && \
+RUN curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered | bash && \
   JOBS=MAX npm install -g --production --unsafe-perm --silent \
     node-red-contrib-influxdb \
     node-red-contrib-mapper \
