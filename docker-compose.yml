@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  influxdb:
+    image: influxdb
+    environment: 
+      - 'INFLUXDB_DB=iotlab'
+    volumes:
+      - 'influxdb:/var/lib/influxdb'
+    expose:
+      - '8086'
+  grafana:
+    build: ./grafana
+    depends_on:
+      - influxdb
+    volumes:
+      - 'grafana:/var/lib/grafana'
+    expose:
+      - '3000'
+  nodered:
+    build: ./nodered
+    depends_on:
+      - influxdb
+    ports: 
+      - '80:80'
