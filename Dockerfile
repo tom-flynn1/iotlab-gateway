@@ -12,6 +12,8 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 # Enable systemd init system in container
-# ENV INITSYSTEM=on
+ENV INITSYSTEM=on
+COPY mosquitto.service /etc/systemd/system/mosquitto.service
+RUN systemctl enable /etc/systemd/system/mosquitto.service
 
-CMD ["mosquitto"]
+CMD ["bash"]

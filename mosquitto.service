@@ -1,0 +1,9 @@
+[Unit]
+Description=Mosquitto MQTT broker
+
+[Service]
+Type=OneShot
+ExecStart=mosquitto -d
+
+[Install]
+WantedBy=basic.target
