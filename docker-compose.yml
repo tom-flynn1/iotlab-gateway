@@ -18,6 +18,8 @@ services:
       - '8086:8086'
   grafana:
     build: ./grafana
+    environment: 
+      - 'GF_INSTALL_PLUGINS=natel-discrete-panel,natel-influx-admin-panel'
     depends_on:
       - influxdb
     volumes:
