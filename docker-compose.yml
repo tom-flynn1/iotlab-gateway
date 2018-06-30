@@ -9,7 +9,7 @@ services:
     ports:
       - "1883:1883"
   influxdb:
-    image: arm64v8/influxdb:latest
+    image: arm32v7/influxdb:latest
     environment: 
       - 'INFLUXDB_DB=iotlab'
     volumes:
