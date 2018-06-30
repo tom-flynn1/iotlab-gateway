@@ -8,15 +8,16 @@ RUN mkdir -p /usr/src/app/
 WORKDIR /usr/src/app
 
 # Install node modules, including i2c-bus without carrying all the deps in the layers
-RUN apk add --no-cache make gcc g++ python && \
-  JOBS=MAX npm install -g node-red \
+RUN apk add --no-cache make gcc g++ python git && \
+  JOBS=MAX npm install -g --production --silent \
+    node-red \
     node-red-contrib-influxdb \
     node-red-contrib-mapper \
     node-red-contrib-resinio \
     node-red-contrib-ttn \
     node-red-dashboard \
     node-red-node-serialport \
-    --production --silent && \
+    && \
   apk del make gcc g++ && \
   npm cache clean --force && rm -rf /tmp/*
 
