@@ -27,9 +27,11 @@ RUN apt-get update && apt-get install -qq -y tar libfontconfig curl ca-certifica
     cp "$GF_PATHS_HOME/conf/sample.ini" "$GF_PATHS_CONFIG" && \
     cp "$GF_PATHS_HOME/conf/ldap.toml" /etc/grafana/ldap.toml && \
     chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" && \
-    chmod 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" && \
-    grafana-cli --pluginsDir "$GF_PATHS_PLUGINS" plugins install natel-discrete-panel && \
-    grafana-cli --pluginsDir "$GF_PATHS_PLUGINS" plugins install natel-influx-admin-panel
+    chmod 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS"
+    
+# && \
+#    grafana-cli --pluginsDir "$GF_PATHS_PLUGINS" plugins install natel-discrete-panel && \
+#    grafana-cli --pluginsDir "$GF_PATHS_PLUGINS" plugins install natel-influx-admin-panel
 
 VOLUME /var/lib/grafana
 EXPOSE 3000
