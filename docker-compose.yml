@@ -2,9 +2,12 @@ version: '2'
 volumes: 
   influxdb:
   grafana:
+  nodered:
 services:
+  mosquitto:
+    build: ./mosquitto
   influxdb:
-    image: influxdb
+    build: ./influxdb
     environment: 
       - 'INFLUXDB_DB=iotlab'
     volumes:
@@ -23,5 +26,7 @@ services:
     build: ./nodered
     depends_on:
       - influxdb
+    volumes:
+      - 'nodered:/var/lib/node-red'
     ports: 
       - '80:80'
