@@ -9,7 +9,7 @@ services:
     ports:
       - "1883:1883"
   influxdb:
-    image: influxdb:alpine
+    image: influxdb:latest
     environment: 
       - 'INFLUXDB_DB=iotlab'
     volumes:
