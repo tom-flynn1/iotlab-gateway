@@ -6,22 +6,24 @@ volumes:
 services:
   mosquitto:
     build: ./mosquitto
+    ports:
+      - "1883:1883"
   influxdb:
     build: ./influxdb
     environment: 
       - 'INFLUXDB_DB=iotlab'
     volumes:
       - 'influxdb:/var/lib/influxdb'
-    expose:
-      - '8086'
+    ports:
+      - '8086:8086'
   grafana:
     build: ./grafana
     depends_on:
       - influxdb
     volumes:
       - 'grafana:/var/lib/grafana'
-    expose:
-      - '3000'
+    ports:
+      - '3000:3000'
   nodered:
     build: ./nodered
     depends_on:
