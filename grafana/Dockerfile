@@ -37,6 +37,7 @@ VOLUME /var/lib/grafana
 EXPOSE 3000
 
 COPY ./run.sh /run.sh
+RUN chmod +x /run.sh
 
 USER grafana
 WORKDIR /
