@@ -29,6 +29,40 @@ Use the following credentials to connect:
 * SSID: `iotlab-ap`
 * Key: `iotlab`
 
+## User management
+
+### Node-RED
+
+The Node-RED instance is shared among all users.
+Pay attention not to mess with someone else's flows.
+
+Suggestion: prefix your MQTT topics name with your username
+
+```
+<username>-<flow-name>
+```
+
+### Grafana
+
+Each user will have its own Grafana Organization named after his/her username.
+
+
+### MQTT
+
+The Mosquitto instance is shared among all users.
+Pay attention not to mess with someone else's topics.
+
+Suggestion: prefix your MQTT topics name with your username
+
+```
+<username>/+/+/+
+```
+
+### InfluxDB
+
+There is no authentication on this InfluxDB instance.
+The user creation script will only create a database with the username.
+
 ## License
 
 Copyright 2018 FabLab Mons.
