@@ -11,12 +11,16 @@ Therefore, there is no security and user management is reduced to the minimum.
 * Time series storage (InfluxDB)
 * Visualisation (Grafana)
 
-The services with a web interface (Node-RED and Grafana) are exposed to an nginx reverse proxy.
+### Exposed ports
 
-* Node-RED: `http://<gateway>/red`
-* Grafana: `http://<gateway>/grafana`
+* TCP/80: HTTP
+  * `http://<gateway>/red`: Node-RED editor
+  * `http://<gateway>/red/ui`: Node-RED dashboard
+  * `http://<gateway>/grafana`: Grafana
+* TCP/1883: MQTT
+* TCP/8086: InfluxDB HTTP API
 
-Where `<gateway>` stands for the hostname or IP address of the gateway.
+Where `<gateway>` should be replaced by the IP address of the gateway.
 
 ## WiFi access point
 
