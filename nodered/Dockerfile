@@ -18,7 +18,7 @@ RUN apk add --no-cache make gcc g++ python git linux-headers && \
     node-red-dashboard \
     node-red-node-serialport \
     && \
-  apk del make gcc g++ && \
+  apk del make gcc g++ linux-headers && \
   npm cache clean --force && rm -rf /tmp/*
 
 # This will copy all files in our root to the working  directory in the container
