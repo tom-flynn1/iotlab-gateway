@@ -11,7 +11,6 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache make gcc g++ python git && \
   JOBS=MAX npm install -g --production --silent \
     node-red \
-    node-red-admin \
     node-red-contrib-influxdb \
     node-red-contrib-mapper \
     node-red-contrib-resinio \
