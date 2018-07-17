@@ -10,6 +10,7 @@ services:
     build: ./nodered
     depends_on:
       - influxdb
+      - mosquitto
     volumes:
       - "nodered:/var/lib/node-red"
     expose:
