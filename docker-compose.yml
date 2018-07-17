@@ -1,36 +1,49 @@
-version: '2'
-volumes: 
-  influxdb:
-  grafana:
-  nodered:
+version: "3"
 services:
+
   mosquitto:
     build: ./mosquitto
     ports:
-      - "1883:1883"
-  influxdb:
-    image: arm32v7/influxdb:latest
-    environment: 
-      - 'INFLUXDB_DB=iotlab'
-    volumes:
-      - 'influxdb:/var/lib/influxdb'
-    ports:
-      - '8086:8086'
-  grafana:
-    build: ./grafana
-    environment: 
-      - 'GF_INSTALL_PLUGINS=natel-discrete-panel,natel-influx-admin-panel'
-    depends_on:
-      - influxdb
-    volumes:
-      - 'grafana:/var/lib/grafana'
-    ports:
-      - '3000:3000'
+      - "1883"
+
   nodered:
     build: ./nodered
     depends_on:
       - influxdb
     volumes:
-      - 'nodered:/var/lib/node-red'
-    ports: 
-      - '80:80'
+      - "nodered:/var/lib/node-red"
+    export:
+      - "80"
+
+  influxdb:
+    image: arm32v7/influxdb:latest
+    environment: 
+      - "INFLUXDB_DB=iotlab"
+    volumes:
+      - "influxdb:/var/lib/influxdb"
+    ports:
+      - "8086"
+
+  grafana:
+    build: ./grafana
+    environment: 
+      - "GF_INSTALL_PLUGINS=natel-discrete-panel,natel-influx-admin-panel"
+    depends_on:
+      - influxdb
+    volumes:
+      - "grafana:/var/lib/grafana"
+    expose:
+      - "3000"
+
+  nginx:
+    image: arm32v7/nginx:latest
+    depends_on:
+      - nodered
+      - grafana
+    ports:
+      - "80"
+
+volumes:
+  influxdb:
+  grafana:
+  nodered:

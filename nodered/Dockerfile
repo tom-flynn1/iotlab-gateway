@@ -11,6 +11,7 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache make gcc g++ python git && \
   JOBS=MAX npm install -g --production --silent \
     node-red \
+    node-red-admin \
     node-red-contrib-influxdb \
     node-red-contrib-mapper \
     node-red-contrib-resinio \
@@ -27,6 +28,8 @@ VOLUME /var/lib/node-red
 
 # Enable systemd init system in container
 # ENV INITSYSTEM=on
+
+EXPOSE 80
 
 # server.js will run when container starts up on the device
 CMD ["bash", "/usr/src/app/start.sh"]

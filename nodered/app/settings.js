@@ -20,7 +20,7 @@
 
 module.exports = {
     // the tcp port that the Node-RED web server is listening on
-    uiPort: process.env.PORT || 80,
+    uiPort: 80,
 
     // By default, the Node-RED UI accepts connections on all IPv4 interfaces.
     // The following property can be used to listen on a specific interface. For
@@ -60,7 +60,7 @@ module.exports = {
     // Note: once you set this property, do not change it - doing so will prevent
     // node-red from being able to decrypt your existing credentials and they will be
     // lost.
-    //credentialSecret: "a-secret-key",
+    credentialSecret: "this-is-not-really-secret",
 
     // By default, all user data is stored in the Node-RED install directory. To
     // use a different location, the following property can be used
@@ -83,7 +83,7 @@ module.exports = {
 
     // The following property can be used in place of 'httpAdminRoot' and 'httpNodeRoot',
     // to apply the same root to both parts.
-    //httpRoot: '/red',
+    httpRoot: '/red',
 
     // When httpAdminRoot is used to move the UI to a different root path, the
     // following property can be used to identify a directory of static content
@@ -96,23 +96,23 @@ module.exports = {
 
     // If you installed the optional node-red-dashboard you can set it's path
     // relative to httpRoot
-    //ui: { path: "ui" },
+    ui: { path: "ui" },
 
     // Securing Node-RED
     // -----------------
     // To password protect the Node-RED editor and admin API, the following
     // property can be used. See http://nodered.org/docs/security.html for details.
-    adminAuth: {
-        type: "credentials",
-        users: [{
-            username: process.env.USERNAME,
-            password: process.env.PASSWORD,
-            permissions: "*"
-        }],
-        default: {
-            permissions: "read"
-        }
-    },
+    //adminAuth: {
+    //    type: "credentials",
+    //    users: [{
+    //        username: process.env.USERNAME,
+    //        password: process.env.PASSWORD,
+    //        permissions: "*"
+    //    }],
+    //    default: {
+    //      permissions: "read"
+    //    }
+    //},
 
     // To password protect the node-defined HTTP endpoints (httpNodeRoot), or
     // the static content (httpStatic), the following properties can be used.
