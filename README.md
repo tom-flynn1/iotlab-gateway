@@ -11,30 +11,19 @@ Therefore, there is no security and user management is reduced to the minimum.
 * Time series storage (InfluxDB)
 * Visualisation (Grafana)
 
+The services with a web interface (Node-RED and Grafana) are exposed to an nginx reverse proxy.
+
+* Node-RED: `http://<gateway>/red`
+* Grafana: `http://<gateway>/grafana`
+
+Where `<gateway>` stands for the hostname or IP address of the gateway.
+
 ## WiFi access point
 
 Use the following credentials to connect:
 
 * SSID: `iotlab-ap`
 * Key: `iotlab`
-
-## Upstream documentation
-
-A Node-RED application with [resin-supervisor](https://docs.resin.io/runtime/supervisor-api/) flow [support](https://github.com/resin-io-projects/node-red-contrib-resinio), can be managed remotely via resin.io [publicURL](https://docs.resin.io/management/devices/#enable-public-device-url)
-
-### Configure via [environment variables](https://docs.resin.io/management/env-vars/)
-Variable Name | Default | Description
------------- | ------------- | -------------
-PORT | `80` | the port that exposes the Node-RED UI
-USERNAME | `none` | the Node-RED admin username
-PASSWORD | `none` | the Node-RED admin password [hash](https://nodered.org/docs/security#generating-the-password-hash)
-
-You **must** set the `USERNAME` and `PASSWORD` environment variables to be able to save or run programs in Node-RED.  
-The hash for the `PASSWORD` variable can be generated using the [`node-red-admin`](https://nodered.org/docs/node-red-admin)
-command line tool. Instructions for generating a password hash can be found in
-the [Node-RED documentation](https://nodered.org/docs/security#generating-the-password-hash).  
-More information about using and setting environment variables can be found in
-the [resin.io docs](https://docs.resin.io/management/env-vars/).
 
 ## License
 
