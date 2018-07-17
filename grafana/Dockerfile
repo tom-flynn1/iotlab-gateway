@@ -12,6 +12,7 @@ ENV PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bi
     GF_PATHS_PLUGINS="/var/lib/grafana/plugins" \
     GF_PATHS_PROVISIONING="/etc/grafana/provisioning"
 
+
 RUN apt-get update && apt-get install -qq -y tar libfontconfig curl ca-certificates git && \
     mkdir -p "$GF_PATHS_HOME/.aws" && \
     curl "$GRAFANA_URL" | tar xfvz - --strip-components=1 -C "$GF_PATHS_HOME" && \
@@ -24,8 +25,6 @@ RUN apt-get update && apt-get install -qq -y tar libfontconfig curl ca-certifica
              "$GF_PATHS_LOGS" \
              "$GF_PATHS_PLUGINS" \
              "$GF_PATHS_DATA" && \
-    cp "$GF_PATHS_HOME/conf/sample.ini" "$GF_PATHS_CONFIG" && \
-    cp "$GF_PATHS_HOME/conf/ldap.toml" /etc/grafana/ldap.toml && \
     chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" && \
     chmod 777 "$GF_PATHS_DATA" "$GF_PATHS_HOME/.aws" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS"
 
@@ -34,6 +33,8 @@ EXPOSE 3000
 
 COPY ./run.sh /run.sh
 RUN chmod +x /run.sh
+
+COPY grafana.ini /etc/grafana/grafana.ini
 
 USER grafana
 WORKDIR /
