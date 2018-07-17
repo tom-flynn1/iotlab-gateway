@@ -31,6 +31,16 @@ Use the following credentials to connect:
 
 ## User management
 
+A training user can be created or removed thanks to some scripts
+
+* `create-user.PS1`
+* `remove-user.PS1`
+
+The following script do the same for users training1..training12
+
+* `create-training-user-set.PS1`
+* `remove-training-user-set.PS1`
+
 ### Node-RED
 
 The Node-RED instance is shared among all users.

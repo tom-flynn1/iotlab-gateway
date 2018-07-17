@@ -10,11 +10,10 @@ $NewUser = $args[1]
 Write-Host "Creating user $($NewUser) on IoT-Lab gateway $($Gateway)"
 
 Write-Host ' - InfluxDB'
-Write-Host ''
+Write-Host '   Database'
 http -o remove-user.log --form POST "$($Gateway):8086/query" q='CREATE DATABASE "'$($NewUser)'"' 
 
 Write-Host ' - Grafana'
-Write-Host ''
 Write-Host '   New organisation'
 http -o remove-user.log -a admin:admin POST "$($Gateway)/grafana/api/orgs" "name=$($NewUser)"
 $organisationId = $(http -a admin:admin -b GET "$($Gateway)/grafana/api/orgs/name/$($NewUser)" | ConvertFrom-Json).id

@@ -20,10 +20,9 @@ Write-Host '   Remove organisation'
 $OrganisationId = $(http -a admin:admin -b GET "$($Gateway)/grafana/api/orgs/name/$($UserToDelete)" | ConvertFrom-Json).id
 http -o remove-user.log -a admin:admin DELETE "$($Gateway)/grafana/api/orgs/$($OrganisationId)" "name=$($UserToDelete)"
 
-Write-Host ''
 Write-Host ' - InfluxDB'
+Write-Host '   Drop database'
 http -o remove-user.log --form POST "$($Gateway):8086/query" q='DROP DATABASE "'$($UserToDelete)'"'
 
-Write-Host ''
 Write-Host "User $($UserToDelete) removed"
 Write-Host ''
