@@ -1,18 +1,22 @@
 # IoT-Lab gateway
 
-This docker image for resin is based on https://github.com/resin-io-projects/resin-node-red.
+I've bootstrapped this project in order to have a standalone IoT gateway.
+My intention is to use it as an educational tool to support exercises.
+Therefore, there is no security and user management is reduced to the minimum.
 
-This gateway contains the following:
+## Services
 
-* Node-RED
-* InfluxDB
-* Grafana
-* Mosquitto (if possible)
+* MQTT (Mosquitto)
+* Data broker (Node-RED)
+* Time series storage (InfluxDB)
+* Visualisation (Grafana)
 
-It also behave like a WiFi access point.
+## WiFi access point
 
-* SSID: iotlab-ap
-* Passphrase: iotlab
+Use the following credentials to connect:
+
+* SSID: `iotlab-ap`
+* Key: `iotlab`
 
 ## Upstream documentation
 
@@ -32,9 +36,9 @@ the [Node-RED documentation](https://nodered.org/docs/security#generating-the-pa
 More information about using and setting environment variables can be found in
 the [resin.io docs](https://docs.resin.io/management/env-vars/).
 
-"## License
+## License
 
-Copyright 2016 Resinio Ltd.
+Copyright 2018 FabLab Mons.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
