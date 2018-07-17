@@ -14,6 +14,11 @@ services:
       - "nodered:/var/lib/node-red"
     expose:
       - "80"
+    devices:
+      - "/dev/i2c-1:/dev/i2c-1"
+      - "/dev/mem:/dev/mem"
+    cap_add:
+      - SYS_RAWIO
 
   influxdb:
     image: arm32v7/influxdb:latest
@@ -36,7 +41,7 @@ services:
       - "3000"
 
   nginx:
-    image: arm32v7/nginx:latest
+    build: ./nginx
     depends_on:
       - nodered
       - grafana
