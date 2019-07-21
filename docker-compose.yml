@@ -11,3 +11,55 @@ services:
     network_mode: "host"
     depends_on:
       - wifi-connect
+  mosquitto:
+    build: ./mosquitto
+    ports:
+      - "1883"
+
+  nodered:
+    build: ./nodered
+    depends_on:
+      - influxdb
+      - mosquitto
+    volumes:
+      - "nodered:/var/lib/node-red"
+    expose:
+      - "80"
+    devices:
+      - "/dev/i2c-1:/dev/i2c-1"
+      - "/dev/mem:/dev/mem"
+    cap_add:
+      - SYS_RAWIO
+
+  influxdb:
+    image: arm32v7/influxdb:latest
+    environment:
+      - "INFLUXDB_DB=iotlab"
+    volumes:
+      - "influxdb:/var/lib/influxdb"
+    ports:
+      - "8086"
+
+  grafana:
+    build: ./grafana
+    environment:
+      - "GF_INSTALL_PLUGINS=natel-discrete-panel,natel-influx-admin-panel"
+    depends_on:
+      - influxdb
+    volumes:
+      - "grafana:/var/lib/grafana"
+    expose:
+      - "3000"
+
+  nginx:
+    build: ./nginx
+    depends_on:
+      - nodered
+      - grafana
+    ports:
+      - "80"
+
+volumes:
+  influxdb:
+  grafana:
+  nodered:
