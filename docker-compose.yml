@@ -1,16 +1,6 @@
-version: '2'
+version: "2"
 services:
-  wifi-connect:
-    build: ./wifi-connect
-    network_mode: "host"
-    privileged: true
-    labels:
-      io.balena.features.dbus: '1'
-  web-app:
-    build: ./web-app
-    network_mode: "host"
-    depends_on:
-      - wifi-connect
+
   mosquitto:
     build: ./mosquitto
     ports:
@@ -33,7 +23,7 @@ services:
 
   influxdb:
     image: arm32v7/influxdb:latest
-    environment:
+    environment: 
       - "INFLUXDB_DB=iotlab"
     volumes:
       - "influxdb:/var/lib/influxdb"
@@ -42,7 +32,7 @@ services:
 
   grafana:
     build: ./grafana
-    environment:
+    environment: 
       - "GF_INSTALL_PLUGINS=natel-discrete-panel,natel-influx-admin-panel"
     depends_on:
       - influxdb
